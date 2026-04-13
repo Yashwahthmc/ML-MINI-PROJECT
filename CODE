@@ -1,0 +1,72 @@
+import numpy as np
+import pandas as pd
+
+np.random.seed(42)
+
+# Large normal data
+normal_temp = np.random.normal(15, 5, 5000)
+normal_pressure = np.random.normal(101, 10, 5000)
+normal_radiation = np.random.normal(50, 10, 5000)
+
+# Large anomaly data
+anom_temp = np.random.normal(35, 8, 1000)
+anom_pressure = np.random.normal(80, 15, 1000)
+anom_radiation = np.random.normal(110, 25, 1000)
+# Combine
+X = np.vstack([
+    np.column_stack((normal_temp, normal_pressure, normal_radiation)),
+    np.column_stack((anom_temp, anom_pressure, anom_radiation))
+])
+
+y = np.array([0]*5000 + [1]*1000)
+
+data = pd.DataFrame(X, columns=["Temperature", "Pressure", "Radiation"])
+data["Label"] = y
+
+print("Dataset size:", data.shape)
+data.head()
+import time
+import pandas as pd
+
+print("Real-time anomaly detection simulation:\n")
+
+# Fit the model here to resolve the NotFittedError
+model.fit(X_train, y_train)
+
+for i in range(5):
+    new_sample_list = [
+        np.random.normal(20, 10),
+        np.random.normal(90, 15),
+        np.random.normal(60, 20)
+    ]
+    # Convert the new sample to a DataFrame with feature names
+    new_sample = pd.DataFrame([new_sample_list], columns=X_train.columns)
+
+    prediction = model.predict(new_sample)
+
+    print("Input:", new_sample_list)
+
+    if prediction[0] == 0:
+        print("Result: Normal\n")
+    else:
+        print("Result: Anomaly Detected!\n")
+
+    time.sleep(1)
+    print("Total samples:", len(data))
+new_data = pd.DataFrame([[45, 60, 130]], 
+                        columns=["Temperature", "Pressure", "Radiation"])
+prediction = model.predict(new_data)
+print("Test Input:", test_anomaly)
+
+if prediction[0] == 0:
+    print("Result: Normal")
+else:
+    print("Result: Anomaly Detected!")
+    import matplotlib.pyplot as plt
+
+importance = model.feature_importances_
+features = ["Temperature", "Pressure", "Radiation"]
+
+plt.bar(features, importance)
+plt.title("Feature Importance in Anomaly Detection")
+plt.show()
